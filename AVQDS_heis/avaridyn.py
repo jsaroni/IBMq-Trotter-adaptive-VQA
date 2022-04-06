@@ -12,7 +12,7 @@ class avaridynBase:
                  model,  # the model
                  ansatz,  # the ansatz
                  quench_type = 1,  # 0 = quench from GS of initial Hamiltonian, 1 = time-evolve from specified (superposition ) of up to two product states
-                 init_state = (0, 0, 1),  # tuple of two product states and relative phase: [i,j, relative phase] with i,j \in {0, ..., 2^(nsite - 1)} and relative phase \theta. If quench_type = 1, allow for an initial state of the form (|i> + exp(i\theta) |j>)/sqrt{2}, where |i>, |j> are arbitrary Z basis product states (given in integer representation of bit string).
+                 init_state = ([0],[1]),  # tuple of two product states and relative phase: [i,j, relative phase] with i,j \in {0, ..., 2^(nsite - 1)} and relative phase \theta. If quench_type = 1, allow for an initial state of the form (|i> + exp(i\theta) |j>)/sqrt{2}, where |i>, |j> are arbitrary Z basis product states (given in integer representation of bit string).
                  dtmax=0.05,  # maximal allowed time step size
                  dthmax=0.02,  # maximal allowed theta step size
                  checkpoint = False
@@ -269,12 +269,14 @@ class avaridynIsing(avaridynBase):
             # corresponds to |0000000> (according to Qutip convention).
         elif self._quench_type == 1: # initial state is superposition of two Z basis eigenstates
             self._vec_i = numpy.zeros(v[0].shape[0])
-            print(f"init_state[0] = {self._init_state[0]}, init_state[1] = {self._init_state[1]}, init_state[2] = {self._init_state[2]}")
-            if self._init_state[0] == self._init_state[1]:
-                self._vec_i[self._init_state[0]] = 1.
+            print(f"init_state[0] = {self._init_state[0]}, init_state[1] = {self._init_state[1]}")
+            if len(self._init_state[0]) == 1:
+                self._vec_i[self._init_state[0][0]] = 1.
             else:
-                self._vec_i[self._init_state[0]] = 1./numpy.sqrt(2.)
-                self._vec_i[self._init_state[1]] = numpy.sign(self._init_state[2])*1./numpy.sqrt(2.)
+                for i in range(len(self._init_state[0])):
+                    self._vec_i[self._init_state[0][i]] = self._init_state[1][i]/numpy.sqrt(len(self._init_state[0]))
+                #self._vec_i[self._init_state[0]] = 1./numpy.sqrt(2.)
+                #self._vec_i[self._init_state[1]] = numpy.sign(self._init_state[2])*1./numpy.sqrt(2.)
             print(f"self._vec_i = {self._vec_i}")
             # numpy.exp(1.j * self._init_state[2])
             # if self._init_state[1] is None:
@@ -379,12 +381,14 @@ class avaridynHeis(avaridynBase):
             # corresponds to |0000000> (according to Qutip convention).
         elif self._quench_type == 1: # initial state is superposition of two Z basis eigenstates
             self._vec_i = numpy.zeros(v[0].shape[0])
-            print(f"init_state[0] = {self._init_state[0]}, init_state[1] = {self._init_state[1]}, init_state[2] = {self._init_state[2]}")
-            if self._init_state[0] == self._init_state[1]:
-                self._vec_i[self._init_state[0]] = 1.
+            print(f"init_state[0] = {self._init_state[0]}, init_state[1] = {self._init_state[1]}")
+            if len(self._init_state[0]) == 1:
+                self._vec_i[self._init_state[0][0]] = 1.
             else:
-                self._vec_i[self._init_state[0]] = 1./numpy.sqrt(2.)
-                self._vec_i[self._init_state[1]] = numpy.sign(self._init_state[2])*1./numpy.sqrt(2.)
+                for i in range(len(self._init_state[0])):
+                    self._vec_i[self._init_state[0][i]] = self._init_state[1][i]/numpy.sqrt(len(self._init_state[0]))
+                #self._vec_i[self._init_state[0]] = 1./numpy.sqrt(2.)
+                #self._vec_i[self._init_state[1]] = numpy.sign(self._init_state[2])*1./numpy.sqrt(2.)
             print(f"self._vec_i = {self._vec_i}")
             # numpy.exp(1.j * self._init_state[2])
             # if self._init_state[1] is None:
@@ -445,7 +449,6 @@ class avaridynHeis(avaridynBase):
         
         
         print(f"fidelity: {ov2}")
-
 
 
 
