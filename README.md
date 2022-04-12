@@ -3,6 +3,12 @@
 
 ## Instruction
 
+### Requirement
+
+h5py, qiskit, qutip
+
+### processs
+
 
 ## Result
 
