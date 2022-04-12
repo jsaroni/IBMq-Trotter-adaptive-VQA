@@ -5,7 +5,7 @@
 
 ### Requirement
 
-h5py, qiskit, qutip
+After executong the code, one should preinstall h5py, qiskit, qutip.
 
 ### processs
 
