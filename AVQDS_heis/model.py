@@ -57,11 +57,11 @@ class xyzmodel(spinModel):
     The Lieb-Schultz-Mattis XYZ model.
     '''
     def __init__(self,
-            nsite=2,  # number of sites
-            T=0.5,    # Linear ramp rate parameter (t/T)
+            nsite=3,  # number of sites
+            T=numpy.pi,    # Linear ramp rate parameter (t/T)
             gi=1,     # Linear ramp protocol parameter
             gf=-1,    # gi + (gf - gi)*t/T
-            hz=-0.7,  # transverse field
+            hz=1,  # transverse field
             J=1,      # ferro magnetic coupling. energy unit.
             ):
         # set up single site spin operators.
@@ -142,11 +142,11 @@ class xyzmodel(spinModel):
 
 class isingmodel(spinModel):
     def __init__(self,
-            nsite=2,  # number of sites
-            T=1.6,    # total simulation time
-            hx=-2.0,  # transverse field
+            nsite=3,  # number of sites
+            T=numpy.pi,    # total simulation time
+            hx=1,  # transverse field
             J=1,      # nearest-neighbor ZZ coupling: -J Z[i]*Z[i+1]. Sets units of energy.
-            T1=0.5,   # Linear ramp rate parameter (t/T)
+            T1=1,   # Linear ramp rate parameter (t/T)
             mode=0,   # 0: sudden quench; others: linear ramp
             ):
         # set up single site spin operators.
@@ -162,11 +162,9 @@ class isingmodel(spinModel):
         self.set_terms()
 
     def set_terms(self):
-        '''
-        set up Hamiltonian terms in open boundary condition.
-        '''
+
         self._x, self._zz = 0, 0
-        # periodic boundary condition
+
         for i in range(-1, self._nsite-1):
             self._x += self._sx_list[i]
             self._zz += self._sz_list[i]*self._sz_list[i+1]
@@ -223,16 +221,16 @@ class zzxzmodel(spinModel):
     '''mixed field Ising model. only consider sudden quench protocol is coded.
     '''
     def __init__(self,
-            nsite=2,   # number of sites
-            T=6,       # total simulation time
+            nsite=3,   # number of sites
+            T=numpy.pi,       # total simulation time
             Jzz_init = None, # initial (pre-quench) value of J (assuming PBC), Jzz > 0 is FM.
             hx_init = None, # initial (pre-quench) value of hx
             hz_init = None, # initial (pre-quench) value of hz
             hs_init= None,  # initial (pre-quench) value of hs
             Jzz = 1.0, # Hamiltonian is -Jzz*Z_i*Z_{i+1} -> Jzz > 0 is FM
-            hx=-2.0,   # x-field
-            hz=0.0,    # z-field, break integrability
-            hs = 0.0,  # staggered magnetic field along z
+            hx=1,   # x-field
+            hz=1,    # z-field, break integrability
+            hs = 1,  # staggered magnetic field along z
             ):
         # set up single site spin operators.
         super().__init__(nsite)
@@ -260,11 +258,9 @@ class zzxzmodel(spinModel):
         self.set_terms()
 
     def set_terms(self):
-        '''
-        set up Hamiltonian terms in open boundary condition.
-        '''
+
         self._x, self._zz, self._z, self._zs = 0, 0, 0, 0
-        # periodic boundary condition
+
         for i in range(0, self._nsite):
             self._x += self._sx_list[i]
             self._zz += self._sz_list[i]*self._sz_list[(i+1)%self._nsite]
@@ -353,18 +349,18 @@ class zzxzmodel(spinModel):
     
 
 class heis(spinModel):
-    '''mixed field Ising model. only consider sudden quench protocol is coded.
+    '''Heisenberg model. only consider sudden quench protocol is coded.
     '''
     def __init__(self,
-            nsite=2,   # number of sites
-            T=6,       # total simulation time
-            Jzz_init = None, # initial (pre-quench) value of J (assuming PBC), Jzz > 0 is FM.
+            nsite=3,   # number of sites
+            T=numpy.pi,       # total simulation time
+            Jzz_init = None, # initial (pre-quench) value of Jzz
             Jxx_init = None, # initial (pre-quench) value of Jxx
             Jyy_init = None, # initial (pre-quench) value of Jyy
             hs_init= None,  # initial (pre-quench) value of hs
-            Jzz = 1.0, # Hamiltonian is -Jzz*Z_i*Z_{i+1} -> Jzz > 0 is FM
-            Jxx=-2.0,   # x-field
-            Jyy=0.0,    # z-field, break integrability
+            Jzz = 1.0, # zz-field
+            Jxx= 1.0,   # xx-field
+            Jyy= 1.0,    # yy-field
             hs = 0.0,  # staggered magnetic field along z
             ):
         # set up single site spin operators.
