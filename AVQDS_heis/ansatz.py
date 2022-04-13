@@ -742,10 +742,6 @@ def generate_op_pools(nq,
             op_pool[1].append([i, 3, i+1, 3])  
         op_pools.append(op_pool)
         
-        
-        
-        
-
     print(f"op pool size: {[len(op_pool[0]) for op_pool in op_pools]}")
 
     return op_pools
