@@ -8,6 +8,7 @@ from ansatz import ansatz
 from avaridyn import avaridynIsing
 from avaridyn import avaridynHeis
 from ansatz import generate_op_pools
+import qiskit
 from qiskit import QuantumCircuit, QuantumRegister, execute
 from qiskit.opflow import Zero, One
 
@@ -37,8 +38,13 @@ else:
 
 ans = ansatz(nsite, ref_state = ref_state, pool='Heis', pthcut=9000)
 
-model = heis(nsite=nsite, T=np.pi, Jzz_init = np.ones(nsite), Jxx_init= np.zeros(nsite), Jyy_init = np.zeros(nsite), hs_init = np.zeros(nsite), Jxx=1.0, Jyy=1.0)
-dyn = avaridynHeis(model, ans, quench_type = 1, init_state = init_state_1, dtmax=0.001, dthmax=0.01) # dtmax=0.1, dthmax=0.2, dtmax=0.001, dthmax=0.01
+
+
+
+
+
+model = heis(nsite=nsite, T=np.pi, Jzz_init = np.ones(nsite), Jxx_init= np.zeros(nsite), Jyy_init = np.zeros(nsite), hs_init = np.zeros(nsite), Jxx=1.0, Jyy=1.0, Jzz=1.0)
+dyn = avaridynHeis(model, ans, quench_type = 1, init_state = init_state_1, dtmax=0.001, dthmax=0.01)
 dyn.run()
 
   
@@ -71,6 +77,9 @@ while float(num[0]) != pi_closer:
 params=num[1:]
 
 print(params)
+
+print( ans._ansatz[1] )
+
 
 qc = QuantumCircuit(nsite)
 qc.x([1,2])
@@ -128,3 +137,4 @@ for job in jobs:
     fids.append(fid)
 
 print('state tomography fidelity = {:.4f} \u00B1 {:.4f}'.format(np.mean(fids), np.std(fids)))
+
