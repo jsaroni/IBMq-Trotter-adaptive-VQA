@@ -278,18 +278,6 @@ class avaridynIsing(avaridynBase):
                 #self._vec_i[self._init_state[0]] = 1./numpy.sqrt(2.)
                 #self._vec_i[self._init_state[1]] = numpy.sign(self._init_state[2])*1./numpy.sqrt(2.)
             print(f"self._vec_i = {self._vec_i}")
-            # numpy.exp(1.j * self._init_state[2])
-            # if self._init_state[1] is None:
-            #     if self._init_state[0] is None:
-            #         raise Exception("Did not specify the initial product state for quench.")
-            #     else:
-            #         self._vec_i[self._init_state[0]] = 1.
-            # else:
-            #     if self._init_state[0] is None:
-            #         self._vec_i[self._init_state[1]] = 1.
-            #     else:
-            #         self._vec_i[self._init_state[0]] = 1./numpy.sqrt(2)
-            #         self._vec_i[self._init_state[1]] = numpy.exp(j*self._init_state[2])/numpy.sqrt(2)
         else:
             raise Exception("quench type different from 0 or 1 is not supported.")
 
@@ -315,7 +303,7 @@ class avaridynIsing(avaridynBase):
         self._records["state"].append(vec)
         # overlap with the 2-fold degenerate ground state
         # (first and last states)
-#        ov = abs(numpy.asarray([vec[0], vec[-1]]))
+        #ov = abs(numpy.asarray([vec[0], vec[-1]]))
         ov = numpy.vdot(vec, self._vec_i)
         #print(f"t = {t:.5f} e = {e:.6f} ov = {ov[0]:.6f} {ov[1]:.6f}\n")
         print(f"t = {t:.5f} e = {e:.6f} ov_initial_state = {ov:.6f}\n")
@@ -346,7 +334,7 @@ class avaridynIsing(avaridynBase):
 
 class avaridynHeis(avaridynBase):
     '''
-    avqds class for transverse field Ising model.
+    avqds class for Heisenberg model.
     '''
     def init_records(self):
         self._records = {
@@ -390,18 +378,6 @@ class avaridynHeis(avaridynBase):
                 #self._vec_i[self._init_state[0]] = 1./numpy.sqrt(2.)
                 #self._vec_i[self._init_state[1]] = numpy.sign(self._init_state[2])*1./numpy.sqrt(2.)
             print(f"self._vec_i = {self._vec_i}")
-            # numpy.exp(1.j * self._init_state[2])
-            # if self._init_state[1] is None:
-            #     if self._init_state[0] is None:
-            #         raise Exception("Did not specify the initial product state for quench.")
-            #     else:
-            #         self._vec_i[self._init_state[0]] = 1.
-            # else:
-            #     if self._init_state[0] is None:
-            #         self._vec_i[self._init_state[1]] = 1.
-            #     else:
-            #         self._vec_i[self._init_state[0]] = 1./numpy.sqrt(2)
-            #         self._vec_i[self._init_state[1]] = numpy.exp(j*self._init_state[2])/numpy.sqrt(2)
         else:
             raise Exception("quench type different from 0 or 1 is not supported.")
 
