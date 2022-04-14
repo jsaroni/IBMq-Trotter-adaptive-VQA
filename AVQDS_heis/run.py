@@ -65,7 +65,7 @@ while num_string != '':
         params=num[1:]
     num_string = f.readline()
 
-print(params) # The variational parameters
+
 
 qc = QuantumCircuit(nsite) # create quantum circuit
 qc.x([1,2])
@@ -145,5 +145,12 @@ fids = []
 for job in jobs:
     fid = state_tomo(job.result(), st_qcs)#, target_time)
     fids.append(fid)
+    
+    
+    
+print('the variational parameters are;', params)
+
+print('the operators corresponding to each variational parameter are;', ans._ansatz[1] )
+
 
 print('state tomography fidelity = {:.4f} \u00B1 {:.4f}'.format(np.mean(fids), np.std(fids)))
