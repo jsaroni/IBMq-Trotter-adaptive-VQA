@@ -44,9 +44,9 @@ ans = ansatz(nsite, ref_state = ref_state, pool='Heis', pthcut=9000) # Create He
 model = heis(nsite=nsite, T=np.pi, Jzz_init = np.ones(nsite), Jxx_init= np.zeros(nsite), Jyy_init = np.zeros(nsite), hs_init = np.zeros(nsite), Jxx=1.0, Jyy=1.0, Jzz=1.0)
 
 # The set up for time evolution with Hamiltonian
-dyn = avaridynHeis(model, ans, quench_type = 1, init_state = init_state_1, dtmax=0.001, dthmax=0.01) # crea
+dyn = avaridynHeis(model, ans, quench_type = 1, init_state = init_state_1, dtmax=0.001, dthmax=0.01) 
 
-dyn.run() # Run avqds simulator to find best parameters
+dyn.run() # Run avqds simulator to find best parameters and operators for pseudo-Trotter time evolution.
   
 target_t=np.pi # the evolution time we want to get 
 f = open("params_trace.DAT", "r") # open the variational parameters file
@@ -65,7 +65,7 @@ while num_string != '':
         params=num[1:]
     num_string = f.readline()
 
-
+print(params) # The variational parameters
 
 qc = QuantumCircuit(nsite) # create quantum circuit
 qc.x([1,2])
@@ -73,9 +73,9 @@ for _ in range(1):
     for i,op in enumerate(ans._ansatz[1]):
         if op[1]==3:                             # op[1]=3: means Rzz gate
             qc.rzz(float(params[i]),op[0],op[2])
-        elif op[1]==2:                           # op[1]=2: means Rzz gate
+        elif op[1]==2:                           # op[1]=2: means Ryy gate
             qc.ryy(float(params[i]),op[0],op[2])
-        elif op[1]==1:                           # # op[1]=1: means Rzz gate
+        elif op[1]==1:                           # # op[1]=1: means Rxx gate
             qc.rxx(float(params[i]),op[0],op[2])
     
         
@@ -145,12 +145,20 @@ fids = []
 for job in jobs:
     fid = state_tomo(job.result(), st_qcs)#, target_time)
     fids.append(fid)
-    
-    
-    
-print('the variational parameters are;', params)
 
-print('the operators corresponding to each variational parameter are;', ans._ansatz[1] )
-
+for i in range(len(params)):
+    print('The '+str(i)+'th variational parameter are;', round(float(params[i]),4))
+    
+    if ans._ansatz[1][i][1] == 1:
+    
+        print('The corresponding Operator is XX')
+    
+    elif ans._ansatz[1][i][1] == 2:
+        
+        print('The corresponding Operator is XX')
+        
+    elif ans._ansatz[1][i][1] == 3:
+        
+        print('The corresponding Operator is YY')
 
 print('state tomography fidelity = {:.4f} \u00B1 {:.4f}'.format(np.mean(fids), np.std(fids)))
