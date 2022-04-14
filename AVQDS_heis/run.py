@@ -21,7 +21,7 @@ start = time.time()
 nsite = N
 
 # init_state = ([state for supersposition],[phase]) : phase e^(i\phi)
-init_state_1 = ([0,4,6,7],[1,1,1,1]) #Create initial state 0-> [down,down,down], 1-> [up,down,down].....
+init_state_1 = ([3],[1]) #Create initial state 0-> [down,down,down], 1-> [up,down,down].....
 
 # U_{\pi/4} the init_state_1 should be ([0,4,6,7],[1,1,1,1])
 
@@ -42,7 +42,7 @@ else:
 ans = ansatz(nsite, ref_state = ref_state, pool='Heis', pthcut=9000) # Create Heisenberg operator pool: Rzz, Rxx, Ryy
 
 # builds up the Hamiltonian model (see model.py)
-model = heis(nsite=nsite, T=np.pi/4, Jzz_init = np.ones(nsite), Jxx_init= np.zeros(nsite), Jyy_init = np.zeros(nsite), hs_init = np.zeros(nsite), Jxx=1.0, Jyy=1.0, Jzz=1.0)
+model = heis(nsite=nsite, T=np.pi, Jzz_init = np.ones(nsite), Jxx_init= np.zeros(nsite), Jyy_init = np.zeros(nsite), hs_init = np.zeros(nsite), Jxx=1.0, Jyy=1.0, Jzz=1.0)
 # T: the total evolution time. If one wan to get U(\pi/4), one can set it as np.pi/4
 
 
@@ -51,7 +51,7 @@ dyn = avaridynHeis(model, ans, quench_type = 1, init_state = init_state_1, dtmax
 
 dyn.run() # Run avqds simulator to find best parameters and operators for pseudo-Trotter time evolution.
   
-target_t=np.pi/4 # the evolution time we want to get. If one wan to get U(\pi/4), one can set it as np.pi/4
+target_t=np.pi # the evolution time we want to get. If one wan to get U(\pi/4), one can set it as np.pi/4
 f = open("params_trace.DAT", "r") # open the variational parameters file
 num_string = f.readline()
 pi_closer = 0
@@ -72,7 +72,7 @@ print(params) # The variational parameters
 
 qc = QuantumCircuit(nsite) # create quantum circuit
 qc.x([1,2])
-for _ in range(4): # if one want to repeat 4 times, set it as 4
+for _ in range(1): # if one want to repeat 4 times, set it as 4
     for i,op in enumerate(ans._ansatz[1]):
         if op[1]==3:                             # op[1]=3: means Rzz gate
             qc.rzz(float(params[i]),op[0],op[2])
@@ -150,18 +150,18 @@ for job in jobs:
     fids.append(fid)
 
 for i in range(len(params)):
-    print('The '+str(i)+'th variational parameter are;', round(float(params[i]),4))
+    print('The '+str(i)+'th variational parameter are:', round(float(params[i]),4))
     
     if ans._ansatz[1][i][1] == 1:
     
-        print('The corresponding Operator is XX')
+        print('The corresponding Operator is XX('+str(ans._ansatz[1][i][0])+','+str(ans._ansatz[1][i][2])+')')
     
     elif ans._ansatz[1][i][1] == 2:
         
-        print('The corresponding Operator is XX')
+        print('The corresponding Operator is YY('+str(ans._ansatz[1][i][0])+','+str(ans._ansatz[1][i][2])+')')
         
     elif ans._ansatz[1][i][1] == 3:
         
-        print('The corresponding Operator is YY')
+        print('The corresponding Operator is ZZ('+str(ans._ansatz[1][i][0])+','+str(ans._ansatz[1][i][2])+')')
 
 print('state tomography fidelity = {:.4f} \u00B1 {:.4f}'.format(np.mean(fids), np.std(fids)))
