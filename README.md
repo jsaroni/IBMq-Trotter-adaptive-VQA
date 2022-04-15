@@ -37,7 +37,7 @@ There are two type of files, python and ipython (Jupyter notebook)
 
 In the results folder, there are 4 files. **params_trace_pi.dat** and **ansatz_pi.h5**
 denote the parameters and operator sequence of UAVQDS (π). **params_trace_pi4.dat**
-and **ansatz_pi4.h5** denote the parameters and operator sequence of UAV QDS (π/4).
+and **ansatz_pi4.h5** denote the parameters and operator sequence of UAVQDS (π/4).
 
 
 
