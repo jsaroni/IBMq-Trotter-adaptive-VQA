@@ -1,17 +1,43 @@
-# Time evolution of quantum states
+# Time evolution of quantum states via adaptive variational quantum algorithm
+
+An Adaptive Variational Quantum Dynamics Simulation (AVQDS) automatically generates a variational ansatz and adaptively expands it along the time evolution path. The ansatz closely matches that from exact diagonalization time evolution and the circuits require less number of gates than Trotter simulations up to the final time given.
 
 
-## Instruction
-
-### Requirement
+## Requirement
 
 After executong the code, one should preinstall h5py, qiskit, qutip.
 
-### Processs
+## Files in AVQDS_heis
 
+There are two type of files, python and ipython (Jupyter notebook)
 
-## Result
+### ipython (Jupyter notebook)
 
-As the three jupyter notebooks show, the **U_(AVQDS)(\pi)** unitary has the best performance around 93.42 % fidelity. The 4 time repeated **U_(AVQDS)(\pi/4)** also has 70.44 % fidelity. The 3-Cnot Heisenberg operator with 6 Trotter steps just has 57.05 % fidelity. The result shows that the AVQDS unitary successfully minimize the Trotter errors so the AVQDS's result outperform the 3-CNOT Heisenberg operator's result. 
+**Mini_Heisenberg_model_best_basis_gate_57.ipynb** is the notebook use the best Heisenberg trotter decomposition using only 3-cnot gates. The best result is 57 %.
+
+**Mini_Heisenberg_model_variational_gate_93__U.ipynb** is the notebook use UAVQDS (π). The best result is 93 %.
+
+**Mini_Heisenberg_model_variational_gate_U4_70.ipynb** is the notebook use UAVQDS (π/4). The best result is 70 %.
+
+### python
+
+**ansatz.py**
+
+**avaridyn.py**
+
+**model.py**
+
+**plot.py**
+
+**run.py**
+
+**timing.py**
+
+## Files in Results 
+
+In the results folder, there are 4 files. **params_trace_pi.dat** and **ansatz_pi.h5**
+denote the parameters and operator sequence of UAVQDS (π). **params_trace_pi4.dat**
+and **ansatz_pi4.h5** denote the parameters and operator sequence of UAV QDS (π/4).
+
 
 
