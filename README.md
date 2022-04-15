@@ -13,11 +13,11 @@ There are two type of files, python and ipython (Jupyter notebook)
 
 ### ipython (Jupyter notebook)
 
-**Mini_Heisenberg_model_best_basis_gate_57.ipynb** is the notebook use the best Heisenberg trotter decomposition using only 3-cnot gates. The best result is 57 %.
+**Mini_Heisenberg_model_best_basis_gate_57.ipynb** is the notebook using the best Heisenberg trotter decomposition using only 3-cnot gates. The best result is 57 %.
 
-**Mini_Heisenberg_model_variational_gate_93__U.ipynb** is the notebook use UAVQDS (π). The best result is 93 %.
+**Mini_Heisenberg_model_variational_gate_93__U.ipynb** is the notebook using UAVQDS (π). The best result is 93 %.
 
-**Mini_Heisenberg_model_variational_gate_U4_70.ipynb** is the notebook use UAVQDS (π/4). The best result is 70 %.
+**Mini_Heisenberg_model_variational_gate_U4_70.ipynb** is the notebook using UAVQDS (π/4). The best result is 70 %.
 
 ### python
 
