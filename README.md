@@ -5,11 +5,11 @@ An Adaptive Variational Quantum Dynamics Simulation (AVQDS) automatically genera
 
 ## Requirement
 
-After executong the code, one should preinstall h5py, qiskit, qutip.
+Before executing the AVQDS code, one should install h5py, qiskit, qutip, numpy and the latest version of scipy.
 
 ## Files in AVQDS_heis
 
-There are two type of files, python and ipython (Jupyter notebook)
+There are two types of files, python and ipython (Jupyter notebook)
 
 ### ipython file (Jupyter notebook)
 
@@ -22,14 +22,19 @@ There are two type of files, python and ipython (Jupyter notebook)
 ### python file
 
 **ansatz.py**
+Finds the variational wave-function using a pool of operators that construct the Hamiltonian and corresponding variational parameters that minimize the McLachlan distance.
 
 **avaridyn.py**
+Stores records of desired quantities.
 
 **model.py**
+The Heisenberg model Hamiltonian with open boundary conditions is defined in this module.
 
 **plot.py**
+To plot quantities of interest like the Loschmidt echo.
 
 **run.py**
+Runs the AVQDS simulation to find the optimal parameters and operators for the time evovled variational ansatz as the classical component of the hybrid algorithm optimization.
 
 **timing.py**
 
