@@ -1,6 +1,6 @@
 # Time evolution of quantum states via adaptive variational quantum algorithm
 
-An Adaptive Variational Quantum Dynamics Simulation (AVQDS)[1](https://journals.aps.org/prxquantum/abstract/10.1103/PRXQuantum.2.030307)[2](https://quantum-journal.org/papers/q-2019-10-07-191/)automatically generates a variational ansatz and adaptively expands it along the time evolution path. The ansatz closely matches that from exact diagonalization time evolution and the circuits require less number of gates than Trotter simulations up to the final time given. ([More details](https://github.com/jsaroni/IBMq-Trotter-adpative-VQA/blob/main/IBMq_Trotter_adaptive_VQA.pdf)) 
+An Adaptive Variational Quantum Dynamics Simulation (AVQDS)[[1](https://journals.aps.org/prxquantum/abstract/10.1103/PRXQuantum.2.030307)][[2](https://quantum-journal.org/papers/q-2019-10-07-191/)]automatically generates a variational ansatz and adaptively expands it along the time evolution path. The ansatz closely matches that from exact diagonalization time evolution and the circuits require less number of gates than Trotter simulations up to the final time given. ([More details](https://github.com/jsaroni/IBMq-Trotter-adpative-VQA/blob/main/IBMq_Trotter_adaptive_VQA.pdf)) 
 
 
 ## Requirement
